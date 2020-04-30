@@ -34,7 +34,7 @@ EXAMPLE
     Retrieves the FieldDetial feed for XXX000 and stores it locally in an auto-generated file
 
 EXAMPLE
-    python CLFeedPull.py -EventCode XXX000 -FeedType FieldDetail -clUserName yourUserName -clPassword yourPassword -out .\myfile.txt
+    python CLFeedPull.py -EventCode XXX000 -FeedType FieldDetail -clUserName yourUserName -clPassword yourPassword -out myfile.txt
 
     Retrieves the FieldDetial feed for XXX000 and stores it in the current working directory as "myfile.txt"
     """
@@ -74,15 +74,18 @@ def main(*args):
             nextSince = since
 
     if "-out" in args:
-        out = args[args.index("-out") + 1]
+        out = Path(args[args.index("-out") + 1])
     # Handle default output document
     else:
-        out = Path(os.getcwd() + "/{Event}_{Feed}_{Date}.txt".format(
+        os.mkdir(Path(os.getcwd() +"/FeedRes"))
+        out = Path(os.getcwd() + "/FeedRes/{Event}_{Feed}_{Date}.txt".format(
             Event=EventCode,
             Feed=FeedType,
             Date=dt.now().strftime("%Y%m%d%H%M%S%f")
             )
                    )
+
+    print("Output file: ", out)
 
     allRecordCnt = 0
     EstMoreRecords = 1
@@ -118,9 +121,16 @@ def main(*args):
             except KeyError:
                 nextSince = None
 
-            with open(out, "a") as out_file:
-                for entity in response.json()["Entities"]:
-                    json.dump(entity, out_file)
+            s = ""
+            if out.exists():
+                with open(out, "r") as in_file:
+                    s = in_file.readlines()
+
+            for entity in response.json()["Entities"]:
+                s += json.dumps(entity, indent=4, sort_keys=True)
+
+            with open(out, "w") as out_file:
+                out_file.writelines(s)
                
 
     print("Feed complete! {a} total records retrieved".format(a=allRecordCnt))
