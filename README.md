@@ -3,9 +3,9 @@ A number of sample proof-of-concept implementations of how to pull data from Exp
 
 For more information on the Cloverleaf API itself, please see [https://api.experientdata.com/] for the latest documentation, schema and feed availability.
 
-# Conventions
+### Conventions
 Any references to "CLUserName" or "CLPassword" in the samples refer to your Experient-provided Cloverleaf credentials; they may be the same as your Experient credentials for other service offerings.
 
-# Available language samples:
+### Available language samples:
 Powershell
 
