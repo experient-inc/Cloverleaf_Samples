@@ -34,19 +34,21 @@ my $client = REST::Client->new();
 # add auth header; compute basic value from passed username and password
 my $joinedPW = encode_base64(encode('ASCII', "$clUserName:$clPassword"));
 $client->addHeader('Authorization',"Basic $joinedPW");
-# Basic bWFjbmV0dGo6TW94aWUzMyg=
 
+print "$joinedPW\n";
+
+# loop through data
+my $pull = undef;
 if($sinceVal && $sinceVal > 0) { $nextSince = $sinceVal; }
 # do
 # {
-#     my $url =  "https://api.experientdata.com/Feed$feedType?Event=$eventCode";
-#     if($nextSince) {
-#         $url += "&Since=" . $nextSince;
-#     }
-#     print "$url\n";
+    my $url =  "https://api.experientdata.com/Feed$feedType?Event=$eventCode";
+    if($nextSince) {
+        $url += "&Since=" . $nextSince;
+    }
+    print "$url\n";
 
-#     my $pull = undef;
-    
-
+    $pull = $client->GET($url)->responseContent();
+    print "$pull\n";
 # } 
 # while()
