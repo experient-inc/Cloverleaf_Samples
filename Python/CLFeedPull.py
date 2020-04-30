@@ -13,25 +13,28 @@ from datetime import datetime as dt
 # Conventionally, assign to variable 'response'
 
 """
-.EXAMPLE
-    .\CLFeedPull.ps1 -EventCode XXX000 -FeedType FieldDetail -clUserName yourUserName
+These examples assume Python3 is your default python interpreter.  If your system default
+Python version is lower than 3, run with python3
+
+EXAMPLE
+    python CLFeedPull.py -EventCode XXX000 -FeedType FieldDetail -clUserName yourUserName
     
     Prompts you for your password, then retrieves the FieldDetial feed for XXX000 and stores it locally in an auto-generated file
 
-.EXAMPLE
-    .\CLFeedPull.ps1 -EventCode XXX000 -FeedType FieldDetail -clUserName yourUserName -Since 637068494249371789
+EXAMPLE
+    python CLFeedPull.py -EventCode XXX000 -FeedType FieldDetail -clUserName yourUserName -Since 637068494249371789
 
     Prompts you for your password, then retrieves the FieldDetial feed for XXX000 and stores it locally in an auto-generated file for all records occuring
     after -Since value "637068494249371789", which would have been returned from a previous pull.  In this way, you can do incremental feeds without
     back-tracking.
 
-.EXAMPLE
-    .\CLFeedPull.ps1 -EventCode XXX000 -FeedType FieldDetail -clUserName yourUserName -clPassword yourPassword
+EXAMPLE
+    python CLFeedPull.py -EventCode XXX000 -FeedType FieldDetail -clUserName yourUserName -clPassword yourPassword
 
     Retrieves the FieldDetial feed for XXX000 and stores it locally in an auto-generated file
 
-.EXAMPLE
-    .\CLFeedPull.ps1 -EventCode XXX000 -FeedType FieldDetail -clUserName yourUserName -clPassword yourPassword -out .\myfile.txt
+EXAMPLE
+    python CLFeedPull.py -EventCode XXX000 -FeedType FieldDetail -clUserName yourUserName -clPassword yourPassword -out .\myfile.txt
 
     Retrieves the FieldDetial feed for XXX000 and stores it in the current working directory as "myfile.txt"
     """
@@ -40,14 +43,21 @@ def main(*args):
     # This is dumb
     args = args[0]
     # Collect command line arguments and assign
-    try:
+    if "-EventCode" in args:
         EventCode = args[args.index("-EventCode") + 1]
+    else:
+        EventCode = input("Please provide EventCode: ")
+
+    if "-FeedType" in args:
         FeedType = args[args.index("-FeedType") + 1]
+    else:
+        FeedType = input("Please provide FeedType: ")
+
+    if "-clUserName" in args:
         clUserName = args[args.index("-clUserName") + 1]
-    except ValueError:
-        print("You did not suppl one or more of EventCode, FeedType, and/or UserName.")
-        print("Rerun command supplying these arguments")
-        sys.exit()
+    else:
+        clUserName = input("Please provide Cloverleaf UserName: ")
+        
     if "-clPassword" in args:
         clPassword = args[args.index("-clPassword") + 1]
     # Handle no password provided
