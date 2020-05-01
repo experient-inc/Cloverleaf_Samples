@@ -9,3 +9,4 @@ Any references to "CLUserName" or "CLPassword" in the samples refer to your Expe
 ### Available language samples:
 Powershell
 Python
+Perl

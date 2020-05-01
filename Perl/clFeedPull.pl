@@ -7,6 +7,34 @@ use JSON;
 use MIME::Base64 qw(encode_base64);
 use REST::Client;
 
+=head1 clFeedPull.pl
+
+This is a sample perl script showing how to retrieve all data from a Cloverleaf feed and save it locally. 
+
+Syntax:
+perl clFeedPull.pl <EventCode> <FeedType> <clUserName> <clPassword> [<Since>]
+    
+This does not pull multiple feeds, obviously, and should not be used in a production environment as-is; it exists
+merely to familiarize the user with the concepts required to pull data from Cloverleaf, and (if necessary) provide an
+example of how one might do that via perl (if required).
+
+The most up-to-date information on Cloverleaf endpoints, implementation, feeds, and examples can be found at https://api.experientdata.com/
+
+EXAMPLES:
+
+    ./clFeedPull.pl XXX000 FieldDetail yourUserName "yourPassword"
+
+    Retrieves the FieldDetail feed for XXX000 and stores it locally in an auto-generated file
+
+
+    ./clFeedPull.pl XXX000 FieldDetail yourUserName "yourPassword" 637068494249371789
+
+    Prompts you for your password, then retrieves the FieldDetial feed for XXX000 and stores it locally in an auto-generated file for all records occuring
+    after "Since" value "637068494249371789", which would have been returned from a previous pull.  In this way, you can do incremental feeds without
+    back-tracking.
+    
+=cut
+
 # Required CPAN installations (if not already present):
 # JSON
 # REST::Client
