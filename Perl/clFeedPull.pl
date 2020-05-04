@@ -51,6 +51,10 @@ if( scalar(@ARGV) == 6) {
     $sinceVal = shift(@ARGV);
 }
 
+# set environment (by url)
+my $url = "https://api.experientdata.com";
+#my $url = "https://qaapi.experientdata.com";
+
 # get path for output file
 (my $sec,my $min,my $hour,my $mday,my $mon,my $year,my $wday,my $yday,my $isdst) = localtime();
 my $odir = getcwd() . "/feedRes";
@@ -87,14 +91,17 @@ print $fh "[";
 if($sinceVal && $sinceVal > 0) { $nextSince = $sinceVal; }
 do
 {
-    my $url =  "https://api.experientdata.com/Feed$feedType?Event=$eventCode";
+    my $url =  "$url/Feed$feedType?Event=$eventCode";
     if($nextSince) {
         $url = $url . "&Since=" . $nextSince;
     }
     print "$url\n";
 
     $pull = $client->GET($url)->responseContent();
-    my $json = from_json($pull);
+    if($pull =~ /Authorization required to access this resource./) {
+        die "AUTHORIZATION ERROR: '$pull'.  Please confirm your cloverleaf credentials are accurate and that you have access to the requested show!";
+    }
+    my $json = from_json($pull) or die "Cloverleaf did not return valid JSON!  Please ensure you have the correct endpoint specified.  Returned: $pull";
 
     my @entArr = @{$json->{Entities}};
     $entCnt= scalar(@entArr);
