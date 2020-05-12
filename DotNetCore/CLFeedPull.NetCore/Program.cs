@@ -77,7 +77,7 @@ namespace CLFeedPull.NetCore
                     if (!char.IsControl(key.KeyChar))
                     {
                         ctx.CLPassword.Append(key.KeyChar);
-                        Console.Write("*");
+                        Console.Write("\b*");
                     }
                     else
                     {
@@ -85,7 +85,7 @@ namespace CLFeedPull.NetCore
                         if (key.Key == ConsoleKey.Backspace && ctx.CLPassword.Length > 0)
                         {
                             ctx.CLPassword.Remove(ctx.CLPassword.Length - 1);
-                            Console.Write("\b \b");
+                            Console.Write("\b");
                         }
                     }
                 }
@@ -96,7 +96,7 @@ namespace CLFeedPull.NetCore
             if (string.IsNullOrWhiteSpace(ctx.EventCode)
                 || string.IsNullOrWhiteSpace(ctx.FeedType)
                 || string.IsNullOrWhiteSpace(ctx.CLUserName)
-                || ctx.CLPassword.Length == 0)
+                || string.IsNullOrWhiteSpace(ctx.CLPassword))
             {
                 Trace.WriteLine("EventCode, FeedType, CLUserName, and CLPassword are required!");
                 WriteExpectedUsage();
