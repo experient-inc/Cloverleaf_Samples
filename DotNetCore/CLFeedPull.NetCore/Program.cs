@@ -67,7 +67,7 @@ namespace CLFeedPull.NetCore
             // if no password was provided on the command line, ask for one.
             if (ctx.CLPassword == null)
             {
-                ctx.CLPassword = "";
+                StringBuilder sb = new StringBuilder();
                 Console.Write("Enter your cloverleaf password: ");
                 ConsoleKeyInfo key;
                 do
@@ -76,20 +76,22 @@ namespace CLFeedPull.NetCore
 
                     if (!char.IsControl(key.KeyChar))
                     {
-                        ctx.CLPassword.Append(key.KeyChar);
+                        sb.Append(key.KeyChar);
                         Console.Write("\b*");
                     }
                     else
                     {
                         // handle backspace
-                        if (key.Key == ConsoleKey.Backspace && ctx.CLPassword.Length > 0)
+                        if (key.Key == ConsoleKey.Backspace && sb.Length > 0)
                         {
-                            ctx.CLPassword.Remove(ctx.CLPassword.Length - 1);
-                            Console.Write("\b");
+                            sb.Remove(sb.Length - 1, 1);
+                            Console.Write(" \b");
                         }
                     }
                 }
                 while (key.Key != ConsoleKey.Enter);
+
+                ctx.CLPassword = sb.ToString();
             }
 
             // validate minimum required values for execution have been provided
