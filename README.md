@@ -10,7 +10,7 @@ Any references to "CLUserName" or "CLPassword" in the samples refer to your Expe
 -Powershell
 -Python
 -Perl
+-.NET Core
 
 ### COMING SOON:
 - .Net Framework
-- .Net Core
