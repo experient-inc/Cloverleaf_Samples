@@ -197,6 +197,10 @@ namespace CLFeedPull.NetCore
                 try
                 {
                     var resp = CLClient.GetAsync(myUrl).Result;
+                    if (resp.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                        throw new Exception($"{resp.StatusCode} '{resp.ReasonPhrase}': {resp.Content.ReadAsStringAsync().Result}.  Please verify that the Cloverleaf credentials you provided are correct.");
+                    if (resp.StatusCode != System.Net.HttpStatusCode.OK)
+                            throw new Exception($"{resp.StatusCode} '{resp.ReasonPhrase}': {resp.Content.ReadAsStringAsync().Result}");
                     using (var MS = new MemoryStream())
                     {
                         resp.Content.ReadAsStreamAsync().Result.CopyTo(MS);
