@@ -8,9 +8,8 @@ namespace CLFeedPull.NetCore
     public class FeedContext
     {
         
-
         /// <summary>
-        /// Experient Event Code for the event in question, typically of the form XXX000
+        /// Maritz Global Events Event Code for the event in question, typically of the form XXX000
         /// </summary>
         public string EventCode { get; set; }
 
@@ -23,17 +22,17 @@ namespace CLFeedPull.NetCore
         /// Map
         /// Person
         /// Product
-        /// See https://api.experientdata.com/ for more documentation and a full list
+        /// See https://api.cloverleaf.mge360.com/ for more documentation and a full list
         /// </summary>
         public string FeedType { get; set; }
 
         /// <summary>
-        /// Your Experient-assigned Cloverleaf account username
+        /// Your Maritz Global Events-assigned Cloverleaf account username
         /// </summary>
         public string CLUserName { get; set; }
 
         /// <summary>
-        /// Your Experient-assigned Cloverleaf account password.  If not specified on the command line, you will be prompted to enter it.
+        /// Your Maritz Global Events-assigned Cloverleaf account password.  If not specified on the command line, you will be prompted to enter it.
         /// </summary>
         public string CLPassword { get; set; }
 

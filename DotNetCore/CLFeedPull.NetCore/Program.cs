@@ -129,7 +129,7 @@ namespace CLFeedPull.NetCore
         /// <summary>
         /// Root Uri for Cloverleaf API 
         /// </summary>
-        private static readonly Uri CloverleafBaseURI = new Uri("https://api.experientdata.com/");
+        private static readonly Uri CloverleafBaseURI = new Uri("https://api.cloverleaf.mge360.com/");
 
         /// <summary>
         /// Shared HttpClient instance for making REST calls to Cloverleaf API.  Per .net best practices, we reuse the 
@@ -178,7 +178,7 @@ namespace CLFeedPull.NetCore
         /// although it can also be used for the FeedMeta and FeedEvent endpoints as desired.
         /// 
         /// We illustrate this method here to demonstrate how one may use the automatically-generated class definitions available at 
-        /// https://api.experientdata.com/entityschema?fmt=cs, but it is not explicitly required that you use these wrappers if they do not fit your use
+        /// https://api.cloverleaf.mge360.com/entityschema?fmt=cs, but it is not explicitly required that you use these wrappers if they do not fit your use
         /// cases; the FeedResponse could also be retooled to use a BsonArray in place of the typed "Entities" property, or one could omit the "bson" flag 
         /// entirely and process the entire resultset as json objects (see some of the other samples in this repository for examples of straight-json 
         /// implementations).

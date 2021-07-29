@@ -32,7 +32,7 @@ if(!$out) {
 }
 "Output file: $out";
 
-$url = ("https://api.experientdata.com/FeedEvent");
+$url = ("https://api.cloverleaf.mge360.com/FeedEvent");
 
 $pull = $null;
 $pull = Invoke-RestMethod -uri $url -Method GET -Authentication Basic -Credential $clCreds -AllowUnencryptedAuthentication

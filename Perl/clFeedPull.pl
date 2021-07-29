@@ -18,7 +18,7 @@ This does not pull multiple feeds, obviously, and should not be used in a produc
 merely to familiarize the user with the concepts required to pull data from Cloverleaf, and (if necessary) provide an
 example of how one might do that via perl (if required).
 
-The most up-to-date information on Cloverleaf endpoints, implementation, feeds, and examples can be found at https://api.experientdata.com/
+The most up-to-date information on Cloverleaf endpoints, implementation, feeds, and examples can be found at https://api.cloverleaf.mge360.com/
 
 EXAMPLES:
 
@@ -52,8 +52,8 @@ if( scalar(@ARGV) == 6) {
 }
 
 # set environment (by url)
-my $url = "https://api.experientdata.com";
-#my $url = "https://qaapi.experientdata.com";
+my $url = "https://api.cloverleaf.mge360.com";
+#my $url = "https://api-qa.cloverleaf.mge360.com";
 
 # get path for output file
 (my $sec,my $min,my $hour,my $mday,my $mon,my $year,my $wday,my $yday,my $isdst) = localtime();

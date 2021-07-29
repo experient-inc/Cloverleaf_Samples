@@ -9,10 +9,10 @@
     merely to familiarize the user with the concepts required to pull data from Cloverleaf, and (if necessary) provide an
     example of how one might do that via powershell.
 
-    The most up-to-date information on Cloverleaf endpoints, implementation, feeds, and examples can be found at https://api.experientdata.com/
+    The most up-to-date information on Cloverleaf endpoints, implementation, feeds, and examples can be found at https://api.cloverleaf.mge360.com/
 
 .PARAMETER EventCode
-	Experient Event Code for the event in question, typically of the form XXX000
+	Maritz Global Events Event Code for the event in question, typically of the form XXX000
 .PARAMETER FeedType
     The type of feed to retrieve.  Acceptable FeedType values are:
         Booth
@@ -22,18 +22,18 @@
         Map
         Person
         Product
-    See https://api.experientdata.com/ for more documentation and a full list
+    See https://api.cloverleaf.mge360.com/ for more documentation and a full list
 .PARAMETER clUserName
-    Your Experient-assigned Cloverleaf account's username
+    Your Maritz Global Events-assigned Cloverleaf account's username
 .PARAMETER clPassWord
-    Your Experient-assigned Cloverleaf account's password
+    Your Maritz Global Events-assigned Cloverleaf account's password
 .PARAMETER Since
     Optional.  Starting "Since" value for the feed pull.  If unspecified, you start from the beginning of the feed.
 .PARAMETER out
     Optional.  Path to the file to write the stream output to.  If unspecified, one is created in the current working directory.
 
 .LINK
-    https://api.experientdata.com/
+    https://api.cloverleaf.mge360.com/
 .LINK
     https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows?view=powershell-6
 .LINK
@@ -106,7 +106,7 @@ $written = $false;
 if($Since -and $Since -gt 0) { $nextSince = $Since }
 do
 {
-    $url = ("https://api.experientdata.com/Feed{0}?Event={1}" -f $FeedType, $EventCode);
+    $url = ("https://api.cloverleaf.mge360.com/Feed{0}?Event={1}" -f $FeedType, $EventCode);
     if($nextSince -ne $null) {
         $url = $url + "&Since=" + $nextSince;
     }

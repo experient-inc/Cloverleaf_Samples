@@ -1,5 +1,5 @@
 # Cloverleaf - .NET Core feed example
-This project is a .net core 3.1 implementation of a Cloverleaf pull, using REST calls, BSON, and the generated Entity schema objects provided at [https://api.experientdata.com/].
+This project is a .net core 3.1 implementation of a Cloverleaf pull, using REST calls, BSON, and the generated Entity schema objects provided at [https://api.cloverleaf.mge360.com/].
 Please see Program.cs for implementation details and nuances.
 
 ### Dependencies

@@ -91,7 +91,7 @@ def main(*args):
     EstMoreRecords = 1
 
     while EstMoreRecords > 0:
-        url = "https://api.experientdata.com/Feed{feed}?Event={event}".format(
+        url = "https://api.cloverleaf.mge360.com/Feed{feed}?Event={event}".format(
             feed=FeedType,
             event=EventCode
         )
