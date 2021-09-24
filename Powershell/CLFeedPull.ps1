@@ -112,8 +112,22 @@ do
     }
     "$url"
 
+    $raw = $null;
+    $raw = Invoke-RestMethod -uri $url -Method GET -Authentication Basic -Credential $clCreds 
+
     $pull = $null;
-    $pull = Invoke-RestMethod -uri $url -Method GET -Authentication Basic -Credential $clCreds
+
+    # JDM 20210923: powershell behaves in a wonderfully inconsistant manner here at times.  Accounting for both.
+    if ($raw.GetType().Name -eq "PSCustomObject") {
+        if($raw.Entities.Count -eq 0) {
+            break;
+        }
+
+        $pull = $raw;
+    }
+    else {
+        $pull = convertfrom-json $raw -ashashtable
+    }
     "Retrieved {0} records; {1} estimated remaining" -f $pull.Entities.Count, $pull.EstMoreRecords
 
     $allRecordCnt += $pull.Entities.Count;
@@ -121,15 +135,17 @@ do
     $nextSince = $null;
     $nextSince = $pull.NextSince;
 
-    $pull.Entities | foreach-object { 
-        $ent = ConvertTo-Json $_;
+    if($pull.Entities.Count -gt 0) {
+       $pull.Entities | foreach-object { 
+            $ent = ConvertTo-Json $_;
 
-        if(!$written) {
-            add-content -path $out -Value ("[{0}" -f $ent.ToString());
-            $written = $true;
-        }
-        else {
-            add-content -path $out -Value (",{0}" -f $ent.ToString())
+            if(!$written) {
+                add-content -path $out -Value ("[{0}" -f $ent.ToString());
+                $written = $true;
+            }
+            else {
+                add-content -path $out -Value (",{0}" -f $ent.ToString())
+            }
         }
     }
 }
